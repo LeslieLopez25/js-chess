@@ -153,6 +153,29 @@ function checkIfValid(target) {
     Number(target.getAttribute("square-id")) ||
     Number(target.parentNode.getAttribute("square-id"));
   const startId = Number(startPositionId);
+
+  switch (piece) {
+    case "pawn":
+      const starterRow = [8, 9, 10, 11, 12, 13, 14, 15];
+      if (
+        (starterRow.includes(startId) &&
+          startId + width * 2 === targetId &&
+          !document.querySelector(`[square-id="${startId + width * 2}"]`)
+            .firstChild) ||
+        (startId + width === targetId &&
+          !document.querySelector(`[square-id="${startId + width}"]`)
+            .firstChild) ||
+        (startId + width - 1 === targetId &&
+          document.querySelector(`[square-id="${startId + width - 1}"]`)
+            .firstChild) ||
+        (startId + width + 1 === targetId &&
+          document.querySelector(`[square-id="${startId + width + 1}"]`)
+            .firstChild)
+      ) {
+        return true;
+      }
+      break;
+  }
 }
 
 function changePlayer() {
