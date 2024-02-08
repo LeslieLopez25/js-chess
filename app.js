@@ -98,6 +98,7 @@ function createBoard() {
     gameBoard.append(square);
   });
 }
+
 createBoard();
 
 const allSquares = document.querySelectorAll(".square");
