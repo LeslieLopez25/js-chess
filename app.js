@@ -131,8 +131,23 @@ function dragDrop(e) {
 
   if (correctGo) {
     if (takenByOpponent && valid) {
+      // Valid move to capture opponent's piece
       e.target.parentNode.append(draggedElement);
       e.target.remove();
+      checkForWin();
+      changePlayer();
+      return;
+    }
+    if (taken && !takenByOpponent && valid) {
+      // Valid move to move to an empty square
+      e.target.append(draggedElement);
+      checkForWin();
+      changePlayer();
+      return;
+    }
+    if (!taken && valid) {
+      // Valid move to move to an empty square
+      e.target.append(draggedElement);
       checkForWin();
       changePlayer();
       return;
@@ -140,12 +155,6 @@ function dragDrop(e) {
     if (taken && !takenByOpponent) {
       infoDisplay.textContent = "You can't go here!";
       setTimeout(() => (infoDisplay.textContent = ""), 2000);
-      return;
-    }
-    if (valid) {
-      e.target.append(draggedElement);
-      checkForWin();
-      changePlayer();
       return;
     }
   }
@@ -342,18 +351,25 @@ function revertIds() {
 
 function checkForWin() {
   const kings = Array.from(document.querySelectorAll("#king"));
-  if (kings.some((king) => king.firstChild.classList.contains("white"))) {
+  const whiteKingExists = kings.some((king) =>
+    king.firstChild?.classList.contains("white")
+  );
+  const blackKingExists = kings.some((king) =>
+    king.firstChild?.classList.contains("black")
+  );
+
+  if (!whiteKingExists) {
     infoDisplay.innerHTML = "Black player wins!";
-    const allSquares = document.querySelectorAll(".square");
-    allSquares.forEach((square) =>
-      square.firstChild?.setAttribute("draggable", false)
-    );
-  }
-  if (kings.some((king) => king.firstChild.classList.contains("black"))) {
+    disableDrag();
+  } else if (!blackKingExists) {
     infoDisplay.innerHTML = "White player wins!";
-    const allSquares = document.querySelectorAll(".square");
-    allSquares.forEach((square) =>
-      square.firstChild?.setAttribute("draggable", false)
-    );
+    disableDrag();
   }
+}
+
+function disableDrag() {
+  const allSquares = document.querySelectorAll(".square");
+  allSquares.forEach((square) =>
+    square.firstChild?.setAttribute("draggable", false)
+  );
 }
