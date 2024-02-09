@@ -3,7 +3,7 @@ const playerDisplay = document.querySelector("#player");
 const infoDisplay = document.querySelector("#info-display");
 const width = 8;
 let playerGo = "black";
-playerDisplay.textContent = "black";
+playerDisplay.textContent = "Black";
 
 const startPieces = [
   rook,
@@ -79,12 +79,12 @@ function createBoard() {
     square.innerHTML = startPiece;
     square.firstChild?.setAttribute("draggable", true);
     square.setAttribute("square-id", i);
-    square.classList.add("beige");
+    square.classList.add("brightCerulean");
     const row = Math.floor((63 - i) / 8) + 1;
     if (row % 2 === 0) {
-      square.classList.add(i % 2 === 0 ? "beige" : "brown");
+      square.classList.add(i % 2 === 0 ? "brightCerulean" : "darkGoldenrod");
     } else {
-      square.classList.add(i % 2 === 0 ? "brown" : "beige");
+      square.classList.add(i % 2 === 0 ? "darkGoldenrod" : "brightCerulean");
     }
 
     if (i <= 15) {
@@ -329,11 +329,11 @@ function changePlayer() {
   if (playerGo === "black") {
     reverseIds();
     playerGo = "white";
-    playerDisplay.textContent = "white";
+    playerDisplay.textContent = "White";
   } else {
     revertIds();
     playerGo = "black";
-    playerDisplay.textContent = "black";
+    playerDisplay.textContent = "Black";
   }
 }
 
