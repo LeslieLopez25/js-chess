@@ -21,8 +21,30 @@ body {
 }
 
 p {
+    color: rgb(255, 255, 255);
     font-size: 1rem;
     font-weight: 600;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(153, 101, 21);
+    color: rgb(255, 255, 255);
+    font-size: 1.125rem;
+    font-weight: bold;
+    width: 12.5rem;
+    height: 2.5rem;
+    line-height: 1;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: .7;
 }
 
 .square {

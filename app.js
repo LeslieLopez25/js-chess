@@ -373,3 +373,35 @@ function disableDrag() {
     square.firstChild?.setAttribute("draggable", false)
   );
 }
+
+function resetGame() {
+  // Clear the game board
+  gameBoard.innerHTML = "";
+
+  // Recreate the board and pieces
+  createBoard();
+
+  // Reset player turn and display
+  playerGo = "black";
+  playerDisplay.textContent = "Black";
+
+  // Remove the win message
+  infoDisplay.innerHTML = "";
+
+  // Make all pieces draggable again
+  const allSquares = document.querySelectorAll(".square");
+  allSquares.forEach((square) => {
+    square.firstChild?.setAttribute("draggable", true);
+  });
+
+  // Add event listeners to the new squares
+  allSquares.forEach((square) => {
+    square.addEventListener("dragstart", dragStart);
+    square.addEventListener("dragover", dragOver);
+    square.addEventListener("drop", dragDrop);
+  });
+}
+
+// Add an event listener to the reset button
+const resetButton = document.getElementById("resetButton");
+resetButton.addEventListener("click", resetGame);
